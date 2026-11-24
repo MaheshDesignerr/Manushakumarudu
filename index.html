@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Manushakumarudu – Bible Promise Studio: Create beautiful Bible verse cards for social media and print." />
+  <title>Bible Promise Studio | Manushakumarudu</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Telugu:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body class="app-layout">
+
+<!-- ============================================================
+     SVG SYMBOL SPRITE (hidden)
+     ============================================================ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- Cross / Logo -->
+  <symbol id="icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="2" x2="12" y2="22"/>
+    <line x1="5"  y1="8" x2="19" y2="8"/>
+  </symbol>
+  <!-- Dashboard -->
+  <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="14" width="7" height="7" rx="1"/>
+    <rect x="3" y="14" width="7" height="7" rx="1"/>
+  </symbol>
+  <!-- Create / Plus -->
+  <symbol id="icon-create" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <line x1="12" y1="8" x2="12" y2="16"/>
+    <line x1="8"  y1="12" x2="16" y2="12"/>
+  </symbol>
+  <!-- Import / Upload -->
+  <symbol id="icon-import" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="17 8 12 3 7 8"/>
+    <line x1="12" y1="3" x2="12" y2="15"/>
+  </symbol>
+  <!-- Templates / Layout -->
+  <symbol id="icon-templates" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <path d="M3 9h18"/>
+    <path d="M9 21V9"/>
+  </symbol>
+  <!-- Backgrounds / Image -->
+  <symbol id="icon-backgrounds" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/>
+    <circle cx="8.5" cy="8.5" r="1.5"/>
+    <polyline points="21 15 16 10 5 21"/>
+  </symbol>
+  <!-- Gallery / Images -->
+  <symbol id="icon-gallery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 2H6a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+    <circle cx="9" cy="9" r="1"/>
+    <polyline points="22 14 17 9 11 14"/>
+  </symbol>
+  <!-- History / Clock -->
+  <symbol id="icon-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <!-- Brand / Tag -->
+  <symbol id="icon-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+    <line x1="7" y1="7" x2="7.01" y2="7"/>
+  </symbol>
+  <!-- Settings / Gear -->
+  <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </symbol>
+  <!-- Bell / Notification -->
+  <symbol id="icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+  </symbol>
+  <!-- Sun / Light theme -->
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1"  x2="12" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22"   x2="5.64"  y2="5.64"/>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1"  y1="12" x2="3"  y2="12"/>
+    <line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+    <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+  </symbol>
+  <!-- Moon / Dark theme -->
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </symbol>
+  <!-- Help / Question -->
+  <symbol id="icon-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </symbol>
+  <!-- Hamburger menu -->
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6"  x2="21" y2="6"/>
+    <line x1="3" y1="12" x2="21" y2="12"/>
+    <line x1="3" y1="18" x2="21" y2="18"/>
+  </symbol>
+  <!-- Download -->
+  <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </symbol>
+  <!-- Drive / Cloud -->
+  <symbol id="icon-drive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <!-- Check / Checkmark -->
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <!-- Trash / Delete -->
+  <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+    <path d="M10 11v6"/>
+    <path d="M14 11v6"/>
+    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+  </symbol>
+  <!-- Edit / Pencil -->
+  <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+  </symbol>
+  <!-- Star -->
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <!-- Book / Bible -->
+  <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </symbol>
+  <!-- Close / X -->
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6"  x2="6"  y2="18"/>
+    <line x1="6"  y1="6"  x2="18" y2="18"/>
+  </symbol>
+  <!-- Filter -->
+  <symbol id="icon-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+  </symbol>
+  <!-- Upload Cloud -->
+  <symbol id="icon-upload-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="16 16 12 12 8 16"/>
+    <line x1="12" y1="12" x2="12" y2="21"/>
+    <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+  </symbol>
+  <!-- Zap / Generate -->
+  <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </symbol>
+  <!-- Select All / Checkbox -->
+  <symbol id="icon-select-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 11l3 3L22 4"/>
+    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+  </symbol>
+  <!-- Link / Connect -->
+  <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </symbol>
+  <!-- Palette / Color -->
+  <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+    <circle cx="8.5"  cy="7.5"  r=".5" fill="currentColor"/>
+    <circle cx="6.5"  cy="12.5" r=".5" fill="currentColor"/>
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8z"/>
+  </symbol>
+  <!-- Type / Font -->
+  <symbol id="icon-type" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4 7 4 4 20 4 20 7"/>
+    <line x1="9"  y1="20" x2="15" y2="20"/>
+    <line x1="12" y1="4"  x2="12" y2="20"/>
+  </symbol>
+  <!-- Camera / Photo -->
+  <symbol id="icon-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+    <circle cx="12" cy="13" r="4"/>
+  </symbol>
+  <!-- Layers / Stack -->
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+    <polyline points="2 17 12 22 22 17"/>
+    <polyline points="2 12 12 17 22 12"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     APP WRAPPER
+     ============================================================ -->
+<div id="app-wrapper">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside id="sidebar" role="complementary" aria-label="Main navigation">
+
+    <!-- Brand -->
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 36 36">
+          <use href="#icon-cross"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Manushakumarudu</span>
+        <span class="brand-subtitle">Bible Promise Studio</span>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-menu" aria-label="Page navigation">
+      <ul role="list">
+        <li>
+          <button class="nav-item active" data-page="dashboard" aria-current="page" aria-label="Dashboard">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-dashboard"/></svg>
+            <span class="nav-label">Dashboard</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="create" aria-label="Create Cards">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-create"/></svg>
+            <span class="nav-label">Create Cards</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="import" aria-label="Bulk Import">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-import"/></svg>
+            <span class="nav-label">Bulk Import</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="templates" aria-label="Design Templates">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-templates"/></svg>
+            <span class="nav-label">Design Templates</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="backgrounds" aria-label="Background Library">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-backgrounds"/></svg>
+            <span class="nav-label">Background Library</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="gallery" aria-label="Generated Images">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-gallery"/></svg>
+            <span class="nav-label">Generated Images</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="history" aria-label="Generation History">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-history"/></svg>
+            <span class="nav-label">Generation History</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="brand" aria-label="Brand Settings">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-brand"/></svg>
+            <span class="nav-label">Brand Settings</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-page="settings" aria-label="General Settings">
+            <svg class="nav-icon" aria-hidden="true"><use href="#icon-settings"/></svg>
+            <span class="nav-label">General Settings</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <span class="version-badge">v1.0.0</span>
+      <span class="sidebar-footer-text">Manushakumarudu © 2024</span>
+    </div>
+
+  </aside>
+  <!-- /SIDEBAR -->
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <div id="main-content">
+
+    <!-- Top Bar -->
+    <header id="topbar" role="banner">
+      <button id="sidebar-toggle" class="topbar-btn icon-btn" aria-label="Toggle sidebar" aria-expanded="true" aria-controls="sidebar">
+        <svg aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+
+      <h1 id="page-title">Dashboard</h1>
+
+      <div class="topbar-right">
+        <button class="topbar-btn icon-btn" aria-label="Notifications" id="btn-notifications">
+          <svg aria-hidden="true"><use href="#icon-bell"/></svg>
+          <span class="notification-dot" aria-hidden="true"></span>
+        </button>
+        <button id="theme-toggle" class="topbar-btn icon-btn" aria-label="Toggle dark/light theme">
+          <svg class="icon-sun" aria-hidden="true"><use href="#icon-sun"/></svg>
+          <svg class="icon-moon" aria-hidden="true"><use href="#icon-moon"/></svg>
+        </button>
+        <button class="topbar-btn icon-btn" aria-label="Help & Documentation" id="btn-help">
+          <svg aria-hidden="true"><use href="#icon-help"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" aria-live="polite" aria-atomic="false" role="status"></div>
+
+    <!-- ==================== PAGES CONTAINER ==================== -->
+    <div id="pages">
+
+      <!-- ======================================================
+           PAGE: DASHBOARD
+           ====================================================== -->
+      <section id="page-dashboard" class="page active" role="main" aria-labelledby="dash-heading">
+
+        <!-- Welcome Hero -->
+        <div class="hero-card card">
+          <div class="hero-card-inner">
+            <div class="hero-icon" aria-hidden="true">
+              <svg width="48" height="48"><use href="#icon-cross"/></svg>
+            </div>
+            <div class="hero-text">
+              <h2 id="dash-heading">Welcome to Bible Promise Studio</h2>
+              <p>Create beautiful Bible verse cards for Instagram, YouTube, and print — in seconds.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row" role="list" aria-label="Statistics">
+          <div class="stat-card card" role="listitem">
+            <div class="stat-icon stat-icon--blue" aria-hidden="true">
+              <svg><use href="#icon-book"/></svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Total Verses</span>
+              <span class="stat-value" id="stat-verses">0</span>
+            </div>
+          </div>
+          <div class="stat-card card" role="listitem">
+            <div class="stat-icon stat-icon--green" aria-hidden="true">
+              <svg><use href="#icon-star"/></svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Created Today</span>
+              <span class="stat-value" id="stat-today">0</span>
+            </div>
+          </div>
+          <div class="stat-card card" role="listitem">
+            <div class="stat-icon stat-icon--purple" aria-hidden="true">
+              <svg><use href="#icon-camera"/></svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Total Images</span>
+              <span class="stat-value" id="stat-images">0</span>
+            </div>
+          </div>
+          <div class="stat-card card" role="listitem">
+            <div class="stat-icon stat-icon--amber" aria-hidden="true">
+              <svg><use href="#icon-layers"/></svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Batches Run</span>
+              <span class="stat-value" id="stat-batches">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card quick-actions-card">
+          <h3 class="card-title">Quick Actions</h3>
+          <div class="quick-actions-row">
+            <button class="btn btn-primary quick-action-btn" data-page="create">
+              <svg aria-hidden="true"><use href="#icon-create"/></svg>
+              Create New Cards
+            </button>
+            <button class="btn btn-secondary quick-action-btn" data-page="import">
+              <svg aria-hidden="true"><use href="#icon-import"/></svg>
+              Bulk Import
+            </button>
+            <button class="btn btn-secondary quick-action-btn" data-page="gallery">
+              <svg aria-hidden="true"><use href="#icon-gallery"/></svg>
+              View Gallery
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+          <h3 class="card-title">Recent Activity</h3>
+          <div id="recent-activity" aria-live="polite">
+            <div class="empty-state-small">
+              <svg aria-hidden="true"><use href="#icon-history"/></svg>
+              <p>No recent activity. Start creating verse cards!</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- /PAGE: DASHBOARD -->
+
+      <!-- ======================================================
+           PAGE: CREATE CARDS
+           ====================================================== -->
+      <section id="page-create" class="page" role="main" aria-labelledby="create-heading">
+        <h2 id="create-heading" class="sr-only">Create Cards</h2>
+
+        <!-- Manual Entry Form -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-book"/></svg>
+            Add Verse
+          </h3>
+          <div class="form-grid">
+            <div class="form-group form-group--full">
+              <label for="verse-text">Verse Text <span class="required" aria-hidden="true">*</span></label>
+              <textarea
+                id="verse-text"
+                name="verse-text"
+                rows="4"
+                placeholder="Type or paste your Bible verse here…"
+                aria-required="true"
+                aria-describedby="verse-text-hint"
+              ></textarea>
+              <small id="verse-text-hint" class="form-hint">Enter the full verse text as it should appear on the card.</small>
+            </div>
+            <div class="form-group">
+              <label for="verse-reference">Reference <span class="required" aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="verse-reference"
+                name="verse-reference"
+                placeholder="e.g. John 3:16"
+                aria-required="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="verse-language">Language</label>
+              <select id="verse-language" name="verse-language">
+                <option value="english">English</option>
+                <option value="telugu">Telugu</option>
+                <option value="hindi">Hindi</option>
+                <option value="tamil">Tamil</option>
+                <option value="kannada">Kannada</option>
+                <option value="malayalam">Malayalam</option>
+                <option value="marathi">Marathi</option>
+                <option value="bengali">Bengali</option>
+                <option value="mixed">Mixed / Bilingual</option>
+              </select>
+            </div>
+            <div class="form-group form-group--action">
+              <button id="btn-add-verse" class="btn btn-primary" type="button">
+                <svg aria-hidden="true"><use href="#icon-create"/></svg>
+                Add to Queue
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verse Queue -->
+        <div class="card">
+          <div class="card-header-row">
+            <h3 class="card-title">
+              <svg aria-hidden="true"><use href="#icon-layers"/></svg>
+              Verse Queue
+            </h3>
+            <button class="btn btn-ghost btn-sm" id="btn-clear-queue" type="button">Clear All</button>
+          </div>
+          <div class="table-wrapper" role="region" aria-label="Verse queue" tabindex="0">
+            <table id="verse-queue-table" aria-label="Queued verses">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Verse Text</th>
+                  <th scope="col">Reference</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="queue-empty-row">
+                  <td colspan="5" class="empty-cell">No verses in queue yet. Add one above.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="design-slot-create">
+        <div id="design-panel">
+        <!-- Design Configuration -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-palette"/></svg>
+            Design Configuration
+          </h3>
+
+          <!-- Format Selector -->
+          <div class="config-section">
+            <h4 class="config-label">Output Format</h4>
+            <div class="format-grid" role="group" aria-label="Output format selection">
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="1080x1080" checked />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="radio-card-label">Instagram Square</span>
+                  <span class="radio-card-size">1080 × 1080</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="1080x1350" />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="radio-card-label">Instagram Portrait</span>
+                  <span class="radio-card-size">1080 × 1350</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="1080x1920" />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="7" y="1" width="10" height="22" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="radio-card-label">Instagram Story</span>
+                  <span class="radio-card-size">1080 × 1920</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="1920x1080" />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                  </span>
+                  <span class="radio-card-label">Landscape</span>
+                  <span class="radio-card-size">1920 × 1080</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="2480x3508" />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="6" x2="16" y2="6" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="9" x2="16" y2="9" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="12" x2="13" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
+                  </span>
+                  <span class="radio-card-label">A4 Poster</span>
+                  <span class="radio-card-size">2480 × 3508</span>
+                </span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="output-format" value="1748x2480" />
+                <span class="radio-card-inner">
+                  <span class="radio-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="2"/><line x1="9" y1="7" x2="15" y2="7" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="10" x2="15" y2="10" stroke="currentColor" stroke-width="1.5"/></svg>
+                  </span>
+                  <span class="radio-card-label">A5 Poster</span>
+                  <span class="radio-card-size">1748 × 2480</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Template Selector -->
+          <div class="config-section">
+            <h4 class="config-label">Design Template</h4>
+            <div id="template-selector" class="template-grid" role="listbox" aria-label="Design templates" tabindex="0">
+              <!-- Populated by app.js -->
+              <div class="template-placeholder">Loading templates…</div>
+            </div>
+          </div>
+
+          <!-- Background Mode -->
+          <div class="config-section">
+            <h4 class="config-label">Background</h4>
+            <div class="radio-row" role="group" aria-label="Background mode">
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="template" checked /><span>🎨 Theme (default)</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="solid" /><span>Colors</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="gradient" /><span>Vibrant</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="pattern" /><span>Patterns</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="christian" /><span>✝ Christian</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="nature" /><span>🌿 Nature</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="abstract" /><span>✨ Abstract</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="random" /><span>Random</span></label>
+              <label class="radio-pill"><input type="radio" name="bg-mode" value="custom" /><span>Custom Upload</span></label>
+            </div>
+            <p id="bg-mode-hint" class="config-hint"></p>
+            <div id="bg-custom-upload-row" class="bg-upload-row" hidden>
+              <label class="btn btn-secondary btn-sm bg-upload-btn">
+                Upload background image(s)
+                <input type="file" id="create-bg-file" accept="image/*" multiple hidden />
+              </label>
+              <small class="form-hint">JPG / PNG / WEBP. Cards use your images in turn; text is made readable automatically.</small>
+            </div>
+            <div id="bg-gallery-create" class="bg-gallery" aria-label="Background selection gallery">
+              <!-- Populated by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Customization -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-type"/></svg>
+            Text Customization
+          </h3>
+          <div class="form-grid form-grid--3col">
+            <!-- Font picker (language aware) -->
+            <div class="form-group form-group--full font-picker">
+              <label>Font Style</label>
+              <div id="font-lang-tabs" class="font-lang-tabs" role="tablist" aria-label="Font language"></div>
+              <div id="font-chip-grid" class="font-chip-grid" role="listbox" aria-label="Fonts"></div>
+              <small class="form-hint">Pick the language tab to see fonts for that script. Each language remembers its own font; verses use the font for their language automatically.</small>
+              <button type="button" id="btn-reset-text" class="btn btn-ghost btn-sm" style="margin-top:8px;">↺ Reset text colors &amp; layout to theme</button>
+            </div>
+            <!-- Font Size -->
+            <div class="form-group">
+              <label for="font-size">Font Size (px, blank = auto-fit)</label>
+              <input type="number" id="font-size" name="font-size" value="" placeholder="Auto" min="12" max="200" />
+            </div>
+            <!-- Font Weight -->
+            <div class="form-group">
+              <label for="font-weight">Font Weight</label>
+              <select id="font-weight" name="font-weight">
+                <option value="300">Light (300)</option>
+                <option value="400" selected>Regular (400)</option>
+                <option value="700">Bold (700)</option>
+              </select>
+            </div>
+            <!-- Text Color -->
+            <div class="form-group">
+              <label for="text-color">Text Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="text-color" name="text-color" value="#ffffff" />
+                <input type="text" class="color-hex" value="#ffffff" aria-label="Text color hex value" />
+              </div>
+            </div>
+            <!-- Text Alignment -->
+            <div class="form-group">
+              <label for="text-align">Alignment</label>
+              <select id="text-align" name="text-align">
+                <option value="center" selected>Center</option>
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+            <!-- Line Spacing -->
+            <div class="form-group">
+              <label for="line-spacing">Line Spacing</label>
+              <input type="number" id="line-spacing" name="line-spacing" value="1.6" min="1.0" max="3.0" step="0.1" />
+            </div>
+            <!-- Letter Spacing -->
+            <div class="form-group">
+              <label for="letter-spacing">Letter Spacing (px)</label>
+              <input type="number" id="letter-spacing" name="letter-spacing" value="0" min="-5" max="20" step="0.5" />
+            </div>
+            <!-- Text Shadow -->
+            <div class="form-group form-group--toggle">
+              <label for="text-shadow">Text Shadow</label>
+              <div class="toggle-wrapper">
+                <input type="checkbox" id="text-shadow" name="text-shadow" role="switch" aria-checked="true" checked />
+                <label for="text-shadow" class="toggle-label" aria-hidden="true"></label>
+              </div>
+            </div>
+            <!-- Reference Font Size -->
+            <div class="form-group">
+              <label for="ref-font-size">Reference Font Size (px)</label>
+              <input type="number" id="ref-font-size" name="ref-font-size" value="" placeholder="Auto" min="8" max="100" />
+            </div>
+            <!-- Reference Color -->
+            <div class="form-group">
+              <label for="ref-color">Reference Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="ref-color" name="ref-color" value="#f0d080" />
+                <input type="text" class="color-hex" value="#f0d080" aria-label="Reference color hex value" />
+              </div>
+            </div>
+            <!-- Reference Position -->
+            <div class="form-group">
+              <label for="ref-position">Reference Position</label>
+              <select id="ref-position" name="ref-position">
+                <option value="bottom-center" selected>Bottom Center</option>
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="top-center">Top Center</option>
+                <option value="inline">Inline (after verse)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design Rotation Mode (Advanced Feature) -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-layers"/></svg>
+            Design Rotation (Bulk)
+          </h3>
+          <p class="config-hint">When generating multiple cards, rotate through different designs automatically for visual variety.</p>
+          <div class="config-section">
+            <div class="radio-row" role="group" aria-label="Design mode">
+              <label class="radio-pill">
+                <input type="radio" name="design-mode" value="single" checked />
+                <span>Same Design (All Cards)</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="design-mode" value="rotate" />
+                <span>Rotate Every N Cards</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="design-mode" value="random" />
+                <span>Random Each Card</span>
+              </label>
+            </div>
+            <div id="rotation-config" class="design-rotation-section hidden">
+              <h4>🎨 Design Rotation Settings</h4>
+              <div class="rotation-config">
+                <label for="rotate-every-n">Change design every</label>
+                <input type="number" id="rotate-every-n" value="3" min="1" max="10" style="width:70px;" />
+                <span>images</span>
+              </div>
+              <div class="form-group" style="margin-top:12px;">
+                <label>Select templates to rotate through:</label>
+                <div id="rotation-template-picker" class="template-grid" role="listbox" aria-label="Rotation templates">
+                  <!-- Populated by app.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Preview Card (Advanced Feature) -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-camera"/></svg>
+            Live Preview
+          </h3>
+          <div id="live-preview-container" style="text-align:center; padding:20px;">
+            <canvas id="preview-canvas" width="400" height="400" style="max-width:100%; border-radius:8px; box-shadow: var(--shadow-md);"></canvas>
+            <button id="btn-refresh-preview" class="btn btn-secondary btn-sm" style="margin-top:12px;" type="button">
+              <svg aria-hidden="true"><use href="#icon-camera"/></svg>
+              Refresh Preview
+            </button>
+          </div>
+        </div>
+
+        </div>
+        </div>
+
+        <!-- Generate Button -->
+        <div class="generate-action-bar">
+          <button id="btn-generate" class="btn btn-generate" type="button" aria-describedby="generate-hint">
+            <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+            Generate Cards
+          </button>
+          <small id="generate-hint" class="form-hint">Generates one image per verse in the queue using the selected design.</small>
+        </div>
+
+      </section>
+      <!-- /PAGE: CREATE CARDS -->
+
+      <!-- ======================================================
+           PAGE: BULK IMPORT
+           ====================================================== -->
+      <section id="page-import" class="page" role="main" aria-labelledby="import-heading">
+        <h2 id="import-heading" class="sr-only">Bulk Import</h2>
+
+        <!-- Dropzone -->
+        <div class="card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-import"/></svg>
+            Upload File
+          </h3>
+          <div
+            id="dropzone"
+            class="dropzone"
+            role="button"
+            tabindex="0"
+            aria-label="Drop files here or click to browse. Accepts Excel, CSV, PDF, and Word documents."
+            aria-describedby="dropzone-hint"
+          >
+            <input
+              type="file"
+              id="file-input"
+              name="file-input"
+              accept=".xlsx,.xls,.csv,.pdf,.docx"
+              hidden
+              aria-hidden="true"
+            />
+            <div class="dropzone-inner">
+              <svg class="dropzone-icon" aria-hidden="true"><use href="#icon-upload-cloud"/></svg>
+              <p class="dropzone-title">Drop your file here</p>
+              <p class="dropzone-subtitle" id="dropzone-hint">or <span class="link-text">click to browse</span></p>
+              <div class="dropzone-formats">
+                <span class="format-badge">.xlsx</span>
+                <span class="format-badge">.xls</span>
+                <span class="format-badge">.csv</span>
+                <span class="format-badge">.pdf</span>
+                <span class="format-badge">.docx</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upload Progress (hidden by default) -->
+          <div id="upload-progress" class="upload-progress" hidden aria-live="polite">
+            <div class="progress-header">
+              <span class="progress-filename" id="progress-filename">Uploading…</span>
+              <span class="progress-pct" id="progress-pct">0%</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="progress-filename">
+              <div class="progress-fill" id="upload-progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Validation Summary -->
+        <div id="validation-summary" class="card validation-card" hidden aria-live="polite">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-check"/></svg>
+            Validation Summary
+          </h3>
+          <div class="validation-body">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Batch Warning -->
+        <div id="batch-warning" class="alert alert-warning" hidden role="alert">
+          <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+          <div>
+            <strong>Large Batch Detected</strong>
+            <p>You have more than 20 verses queued. Generation may take a while. Consider splitting into smaller batches.</p>
+          </div>
+        </div>
+
+        <!-- Extracted Verses Table -->
+        <div class="card">
+          <div class="card-header-row">
+            <h3 class="card-title">
+              <svg aria-hidden="true"><use href="#icon-layers"/></svg>
+              Extracted Verses
+            </h3>
+            <span class="badge" id="extracted-count">0 verses</span>
+          </div>
+          <div class="table-wrapper" role="region" aria-label="Extracted verses" tabindex="0">
+            <table id="extracted-verses-table" aria-label="Extracted verses from file">
+              <thead>
+                <tr>
+                  <th scope="col">
+                    <input type="checkbox" id="select-all-extracted" aria-label="Select all extracted verses" />
+                  </th>
+                  <th scope="col">#</th>
+                  <th scope="col">Verse Text</th>
+                  <th scope="col">Reference</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="6" class="empty-cell">No file uploaded yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Design settings (same panel as Create Cards) -->
+        <div class="card import-design-intro">
+          <h3 class="card-title"><svg aria-hidden="true"><use href="#icon-palette"/></svg> Design for this batch</h3>
+          <p class="config-hint">These are the same design controls as Create Cards. They apply to every imported verse.</p>
+        </div>
+        <div id="design-slot-import"></div>
+
+        <!-- Confirm Generate -->
+        <div class="generate-action-bar">
+          <button id="btn-confirm-generate" class="btn btn-generate" type="button">
+            <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+            Generate All Cards
+          </button>
+          <small class="form-hint">Adds the imported verses to the queue and generates one card for each, using the design above.</small>
+        </div>
+
+      </section>
+      <!-- /PAGE: BULK IMPORT -->
+
+      <!-- ======================================================
+           PAGE: DESIGN TEMPLATES
+           ====================================================== -->
+      <section id="page-templates" class="page" role="main" aria-labelledby="templates-heading">
+        <h2 id="templates-heading" class="sr-only">Design Templates</h2>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs" role="tablist" aria-label="Template categories">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-template-filter="all">All</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="minimal">Minimal</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="elegant">Elegant</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="bold">Bold</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="floral">Floral</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="traditional">Traditional</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="nature">Nature</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="christian">Christian</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="modern">Modern</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-template-filter="dark">Dark</button>
+        </div>
+
+        <!-- Templates Grid -->
+        <div id="templates-grid" class="templates-grid" role="list" aria-label="Available templates" aria-live="polite">
+          <!-- Populated by app.js -->
+          <div class="loading-placeholder">
+            <svg aria-hidden="true"><use href="#icon-layers"/></svg>
+            <p>Loading templates…</p>
+          </div>
+        </div>
+
+      </section>
+      <!-- /PAGE: DESIGN TEMPLATES -->
+
+      <!-- ======================================================
+           PAGE: BACKGROUND LIBRARY
+           ====================================================== -->
+      <section id="page-backgrounds" class="page" role="main" aria-labelledby="backgrounds-heading">
+        <h2 id="backgrounds-heading" class="sr-only">Background Library</h2>
+
+        <!-- Category Tabs -->
+        <div class="filter-tabs" role="tablist" aria-label="Background categories">
+          <button class="tab-btn active" role="tab" aria-selected="true" data-bg-category="all">All</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="solid">Colors</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="gradient">Vibrant</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="pattern">Patterns</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="christian">✝ Christian</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="nature">Nature</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="abstract">Abstract</button>
+          <button class="tab-btn" role="tab" aria-selected="false" data-bg-category="custom">Custom</button>
+        </div>
+        <div class="bg-search-row">
+          <input type="search" id="bg-search" placeholder="Search backgrounds (e.g. gold, cross, sunset)…" aria-label="Search backgrounds" />
+          <span id="bg-count" class="bg-count"></span>
+        </div>
+
+        <!-- Backgrounds Grid -->
+        <div id="backgrounds-grid" class="backgrounds-grid" role="list" aria-label="Available backgrounds" aria-live="polite">
+          <!-- Populated by app.js -->
+          <div class="loading-placeholder">
+            <svg aria-hidden="true"><use href="#icon-backgrounds"/></svg>
+            <p>Loading backgrounds…</p>
+          </div>
+        </div>
+
+        <!-- Custom Upload Area -->
+        <div id="custom-bg-upload" class="card custom-upload-card" hidden>
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-upload-cloud"/></svg>
+            Upload Custom Backgrounds
+          </h3>
+          <div
+            class="dropzone dropzone--compact"
+            id="bg-dropzone"
+            role="button"
+            tabindex="0"
+            aria-label="Drop background images here or click to browse"
+          >
+            <input type="file" id="bg-file-input" accept="image/*" multiple hidden aria-hidden="true" />
+            <div class="dropzone-inner">
+              <svg class="dropzone-icon" aria-hidden="true"><use href="#icon-upload-cloud"/></svg>
+              <p>Drop images or <span class="link-text">click to browse</span></p>
+              <small>PNG, JPG, WEBP – up to 10 MB each</small>
+            </div>
+          </div>
+          <div id="custom-bg-preview" class="custom-bg-preview" aria-label="Uploaded custom backgrounds" role="list">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+
+      </section>
+      <!-- /PAGE: BACKGROUND LIBRARY -->
+
+      <!-- ======================================================
+           PAGE: GENERATED IMAGES (GALLERY)
+           ====================================================== -->
+      <section id="page-gallery" class="page" role="main" aria-labelledby="gallery-heading">
+        <h2 id="gallery-heading" class="sr-only">Generated Images</h2>
+
+        <!-- Gallery Toolbar -->
+        <div class="gallery-toolbar card">
+          <div class="gallery-toolbar-left">
+            <button class="btn btn-ghost btn-sm" id="btn-select-all" type="button">
+              <svg aria-hidden="true"><use href="#icon-select-all"/></svg>
+              Select All
+            </button>
+            <span class="selected-count" id="selected-count" aria-live="polite">0 selected</span>
+          </div>
+          <div class="gallery-toolbar-right">
+            <button class="btn btn-secondary btn-sm" id="btn-download-selected-zip" type="button" disabled aria-disabled="true">
+              <svg aria-hidden="true"><use href="#icon-download"/></svg>
+              Download Selected
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-download-all-zip" type="button">
+              <svg aria-hidden="true"><use href="#icon-download"/></svg>
+              Download All
+            </button>
+            <button class="btn btn-primary btn-sm" id="btn-save-to-drive" type="button">
+              <svg aria-hidden="true"><use href="#icon-drive"/></svg>
+              Save to Drive
+            </button>
+          </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div id="gallery-grid" class="gallery-grid" role="list" aria-label="Generated images" aria-live="polite">
+          <!-- Empty State -->
+          <div class="empty-state gallery-empty-state">
+            <svg class="empty-state-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+            <h3>No Images Yet</h3>
+            <p>Generated cards will appear here. Start by creating or importing verses.</p>
+            <button class="btn btn-primary" data-page="create" type="button">
+              <svg aria-hidden="true"><use href="#icon-create"/></svg>
+              Create Your First Card
+            </button>
+          </div>
+        </div>
+
+      </section>
+      <!-- /PAGE: GENERATED IMAGES (GALLERY) -->
+
+      <!-- ======================================================
+           PAGE: GENERATION HISTORY
+           ====================================================== -->
+      <section id="page-history" class="page" role="main" aria-labelledby="history-heading">
+        <h2 id="history-heading" class="sr-only">Generation History</h2>
+
+        <!-- Filter Bar -->
+        <div class="card filter-bar">
+          <div class="filter-bar-inner">
+            <div class="form-group form-group--inline">
+              <label for="history-search">
+                <svg aria-hidden="true"><use href="#icon-filter"/></svg>
+                Search
+              </label>
+              <input type="search" id="history-search" placeholder="Search by reference, date…" aria-label="Search history" />
+            </div>
+            <div class="form-group form-group--inline">
+              <label for="history-date-from">From</label>
+              <input type="date" id="history-date-from" aria-label="History from date" />
+            </div>
+            <div class="form-group form-group--inline">
+              <label for="history-date-to">To</label>
+              <input type="date" id="history-date-to" aria-label="History to date" />
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btn-history-filter" type="button">
+              <svg aria-hidden="true"><use href="#icon-filter"/></svg>
+              Apply
+            </button>
+            <button class="btn btn-ghost btn-sm" id="btn-history-clear" type="button">Clear</button>
+          </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="card">
+          <div class="table-wrapper" role="region" aria-label="Generation history" tabindex="0">
+            <table id="history-table" aria-label="Generation history records">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Reference</th>
+                  <th scope="col">Format</th>
+                  <th scope="col">Template</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="6" class="empty-cell">No history records found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+      <!-- /PAGE: GENERATION HISTORY -->
+
+      <!-- ======================================================
+           PAGE: BRAND SETTINGS
+           ====================================================== -->
+      <section id="page-brand" class="page" role="main" aria-labelledby="brand-heading">
+        <h2 id="brand-heading" class="sr-only">Brand Settings</h2>
+
+        <div class="card settings-card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-brand"/></svg>
+            Brand Identity
+          </h3>
+
+          <div class="form-grid form-grid--2col">
+            <!-- Brand Name -->
+            <div class="form-group">
+              <label class="radio-pill" style="margin-right:8px;"><input type="checkbox" id="brand-logo-enabled" checked /><span>Show logo</span></label>
+              <label class="radio-pill"><input type="checkbox" id="brand-name-enabled" checked /><span>Show name</span></label>
+              <br /><label for="brand-name">Brand Name</label>
+              <input
+                type="text"
+                id="brand-name"
+                name="brand-name"
+                value="Manushakumarudu"
+                aria-describedby="brand-name-hint"
+              />
+              <small id="brand-name-hint" class="form-hint">Displayed on the card as a watermark or brand label.</small>
+            </div>
+
+            <!-- Brand Font -->
+            <div class="form-group">
+              <label for="brand-font">Brand Font</label>
+              <select id="brand-font" name="brand-font">
+                <option value="'Inter', sans-serif" selected>Inter</option>
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Noto Serif', serif">Noto Serif</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Noto Sans Telugu', sans-serif">Noto Sans Telugu</option>
+              </select>
+            </div>
+
+            <!-- Logo Upload -->
+            <div class="form-group">
+              <label for="logo-upload">Logo Image</label>
+              <div class="logo-upload-wrapper">
+                <input
+                  type="file"
+                  id="logo-upload"
+                  name="logo-upload"
+                  accept="image/*"
+                  aria-describedby="logo-hint"
+                />
+                <small id="logo-hint" class="form-hint">PNG with transparency recommended. Max 2 MB.</small>
+              </div>
+            </div>
+
+            <!-- Logo Preview -->
+            <div class="form-group">
+              <span class="form-label-static">Logo Preview</span>
+              <div id="logo-preview" class="logo-preview" aria-label="Logo preview" role="img">
+                <svg aria-hidden="true" class="logo-preview-placeholder"><use href="#icon-camera"/></svg>
+                <span>No logo uploaded</span>
+              </div>
+            </div>
+
+            <!-- Brand Color -->
+            <div class="form-group">
+              <label for="brand-color">Brand Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="brand-color" name="brand-color" value="#f0d080" />
+                <input type="text" class="color-hex" value="#f0d080" aria-label="Brand color hex value" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Position Selector -->
+          <div class="config-section">
+            <h4 class="config-label">Brand Position on Card</h4>
+            <div class="position-grid" role="group" aria-label="Brand position">
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="top-left" />
+                <span class="radio-card-inner" aria-label="Top left">
+                  <span class="pos-dot pos-dot--tl" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Top Left</span>
+                </span>
+              </label>
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="top-center" />
+                <span class="radio-card-inner" aria-label="Top center">
+                  <span class="pos-dot pos-dot--tc" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Top Center</span>
+                </span>
+              </label>
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="top-right" />
+                <span class="radio-card-inner" aria-label="Top right">
+                  <span class="pos-dot pos-dot--tr" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Top Right</span>
+                </span>
+              </label>
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="bottom-left" />
+                <span class="radio-card-inner" aria-label="Bottom left">
+                  <span class="pos-dot pos-dot--bl" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Bottom Left</span>
+                </span>
+              </label>
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="bottom-center" checked />
+                <span class="radio-card-inner" aria-label="Bottom center">
+                  <span class="pos-dot pos-dot--bc" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Bottom Center</span>
+                </span>
+              </label>
+              <label class="radio-card radio-card--position">
+                <input type="radio" name="brand-position" value="bottom-right" />
+                <span class="radio-card-inner" aria-label="Bottom right">
+                  <span class="pos-dot pos-dot--br" aria-hidden="true">●</span>
+                  <span class="radio-card-label">Bottom Right</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Size Slider -->
+          <div class="form-grid form-grid--2col">
+            <div class="form-group">
+              <label for="brand-size">Brand Size: <span id="brand-size-val">24</span>px</label>
+              <input
+                type="range"
+                id="brand-size"
+                name="brand-size"
+                min="10"
+                max="80"
+                value="24"
+                step="1"
+                aria-valuemin="10"
+                aria-valuemax="80"
+                aria-valuenow="24"
+              />
+            </div>
+            <!-- Opacity Slider -->
+            <div class="form-group">
+              <label for="brand-opacity">Opacity: <span id="brand-opacity-val">80</span>%</label>
+              <input
+                type="range"
+                id="brand-opacity"
+                name="brand-opacity"
+                min="10"
+                max="100"
+                value="80"
+                step="5"
+                aria-valuemin="10"
+                aria-valuemax="100"
+                aria-valuenow="80"
+              />
+            </div>
+          </div>
+
+          <!-- Save -->
+          <div class="form-actions">
+            <button id="btn-save-brand" class="btn btn-primary" type="button">
+              <svg aria-hidden="true"><use href="#icon-check"/></svg>
+              Save Brand Settings
+            </button>
+          </div>
+
+        </div>
+      </section>
+      <!-- /PAGE: BRAND SETTINGS -->
+
+      <!-- ======================================================
+           PAGE: GENERAL SETTINGS
+           ====================================================== -->
+      <section id="page-settings" class="page" role="main" aria-labelledby="settings-heading">
+        <h2 id="settings-heading" class="sr-only">General Settings</h2>
+
+        <!-- Generation Settings -->
+        <div class="card settings-card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+            Generation Settings
+          </h3>
+          <div class="form-grid form-grid--2col">
+            <div class="form-group">
+              <label for="max-verses">Max Verses per Batch</label>
+              <input
+                type="number"
+                id="max-verses"
+                name="max-verses"
+                value="100"
+                min="1"
+                max="200"
+                aria-describedby="max-verses-hint"
+              />
+              <small id="max-verses-hint" class="form-hint">Maximum number of verses processed in a single generation run.</small>
+            </div>
+            <div class="form-group">
+              <label for="default-format">Default Output Format</label>
+              <select id="default-format" name="default-format">
+                <option value="1080x1080" selected>Instagram Square (1080×1080)</option>
+                <option value="1080x1350">Instagram Portrait (1080×1350)</option>
+                <option value="1080x1920">Instagram Story (1080×1920)</option>
+                <option value="1920x1080">Landscape (1920×1080)</option>
+                <option value="2480x3508">A4 Poster (2480×3508)</option>
+                <option value="1748x2480">A5 Poster (1748×2480)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="output-quality">Output Quality</label>
+              <select id="output-quality" name="output-quality">
+                <option value="0.95" selected>High (95%)</option>
+                <option value="0.85">Medium (85%)</option>
+                <option value="0.70">Low (70%)</option>
+                <option value="1.0">Maximum (100% – PNG)</option>
+              </select>
+            </div>
+            <div class="form-group form-group--toggle">
+              <label for="auto-save-history">Auto-save to History</label>
+              <div class="toggle-wrapper">
+                <input type="checkbox" id="auto-save-history" name="auto-save-history" role="switch" aria-checked="true" checked />
+                <label for="auto-save-history" class="toggle-label" aria-hidden="true"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Integration -->
+        <div class="card settings-card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-drive"/></svg>
+            Google Drive Integration
+          </h3>
+          <div class="form-grid form-grid--2col">
+            <div class="form-group form-group--full">
+              <label for="apps-script-url">Apps Script Web App URL</label>
+              <input
+                type="url"
+                id="apps-script-url"
+                name="apps-script-url"
+                placeholder="https://script.google.com/macros/s/…/exec"
+                aria-describedby="apps-script-hint"
+              />
+              <small id="apps-script-hint" class="form-hint">Deploy your Google Apps Script as a Web App and paste the URL here.</small>
+            </div>
+            <div class="form-group form-group--full">
+              <label for="drive-folder-id">Google Drive Folder ID</label>
+              <input
+                type="text"
+                id="drive-folder-id"
+                name="drive-folder-id"
+                placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms"
+                aria-describedby="drive-folder-hint"
+              />
+              <small id="drive-folder-hint" class="form-hint">The ID from your Drive folder URL: drive.google.com/drive/folders/<strong>ID</strong></small>
+            </div>
+          </div>
+          <div class="form-actions form-actions--row">
+            <button id="btn-test-connection" class="btn btn-secondary" type="button">
+              <svg aria-hidden="true"><use href="#icon-link"/></svg>
+              Test Connection
+            </button>
+            <span id="connection-status" class="connection-status" aria-live="polite" role="status"></span>
+          </div>
+        </div>
+
+        <!-- Appearance -->
+        <div class="card settings-card">
+          <h3 class="card-title">
+            <svg aria-hidden="true"><use href="#icon-palette"/></svg>
+            Appearance
+          </h3>
+          <div class="form-group form-group--toggle">
+            <label for="settings-theme-toggle">Dark Mode</label>
+            <div class="toggle-wrapper">
+              <input type="checkbox" id="settings-theme-toggle" name="settings-theme-toggle" role="switch" aria-checked="false" />
+              <label for="settings-theme-toggle" class="toggle-label" aria-hidden="true"></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save -->
+        <div class="form-actions">
+          <button id="btn-save-settings" class="btn btn-primary" type="button">
+            <svg aria-hidden="true"><use href="#icon-check"/></svg>
+            Save Settings
+          </button>
+        </div>
+
+      </section>
+      <!-- /PAGE: GENERAL SETTINGS -->
+
+    </div>
+    <!-- /PAGES -->
+
+    <!-- ======================================================
+         GENERATION PROGRESS MODAL
+         ====================================================== -->
+    <div
+      id="gen-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gen-modal-title"
+      aria-describedby="gen-modal-desc"
+      hidden
+    >
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 id="gen-modal-title" class="modal-title">
+            <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+            Generating Cards
+          </h2>
+        </div>
+        <div class="modal-body" id="gen-modal-desc">
+          <!-- Progress Bar -->
+          <div class="progress-track progress-track--lg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="gen-status">
+            <div class="progress-fill" id="gen-progress-bar" style="width:0%"></div>
+          </div>
+          <!-- Status -->
+          <p class="gen-status-text" id="gen-status" aria-live="polite">Preparing…</p>
+          <!-- Counter -->
+          <p class="gen-counter" id="gen-counter" aria-live="polite">0 / 0</p>
+          <!-- Preview thumbnail slot -->
+          <div class="gen-preview" id="gen-preview" aria-hidden="true"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-cancel-gen" class="btn btn-danger" type="button">
+            <svg aria-hidden="true"><use href="#icon-close"/></svg>
+            Cancel Generation
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         IMAGE EDIT MODAL
+         ====================================================== -->
+    <div
+      id="edit-modal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-modal-title"
+      hidden
+    >
+      <div class="modal-box modal-box--wide">
+        <div class="modal-header">
+          <h2 id="edit-modal-title" class="modal-title">
+            <svg aria-hidden="true"><use href="#icon-edit"/></svg>
+            Edit Card
+          </h2>
+          <button class="modal-close btn icon-btn" id="btn-close-edit-modal" type="button" aria-label="Close edit modal">
+            <svg aria-hidden="true"><use href="#icon-close"/></svg>
+          </button>
+        </div>
+        <div class="modal-body modal-body--split">
+          <!-- Canvas Preview -->
+          <div class="edit-preview-pane">
+            <canvas id="edit-canvas" aria-label="Card preview" role="img"></canvas>
+          </div>
+          <!-- Edit Form -->
+          <div class="edit-form-pane">
+            <div class="form-group">
+              <label for="edit-verse-text">Verse Text</label>
+              <textarea id="edit-verse-text" name="edit-verse-text" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="edit-verse-reference">Reference</label>
+              <input type="text" id="edit-verse-reference" name="edit-verse-reference" />
+            </div>
+            <div class="form-group">
+              <label for="edit-font-family">Font</label>
+              <select id="edit-font-family" name="edit-font-family">
+                <option value="'Noto Serif', serif">Noto Serif</option>
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Inter', sans-serif">Inter</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Noto Sans Telugu', sans-serif">Noto Sans Telugu</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-font-size">Font Size (px)</label>
+              <input type="number" id="edit-font-size" name="edit-font-size" value="52" min="12" max="200" />
+            </div>
+            <div class="form-group">
+              <label for="edit-text-color">Text Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="edit-text-color" name="edit-text-color" value="#ffffff" />
+                <input type="text" class="color-hex" value="#ffffff" aria-label="Edit text color hex" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="edit-text-align">Alignment</label>
+              <select id="edit-text-align" name="edit-text-align">
+                <option value="center" selected>Center</option>
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" id="btn-discard-edit" type="button">Discard</button>
+          <button class="btn btn-primary" id="btn-regen" type="button">
+            <svg aria-hidden="true"><use href="#icon-zap"/></svg>
+            Regenerate
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /MAIN CONTENT -->
+
+</div>
+<!-- /APP WRAPPER -->
+
+<!-- Hidden render canvas (off-screen, used for image generation) -->
+<canvas
+  id="render-canvas"
+  style="position:absolute;left:-9999px;top:0;display:block;"
+  aria-hidden="true"
+></canvas>
+
+<!-- ============================================================
+     CDN SCRIPTS
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="app.js" defer></script>
+
+</body>
+</html>
