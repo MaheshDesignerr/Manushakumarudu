@@ -723,6 +723,26 @@
                 <input type="radio" name="design-mode" value="random" />
                 <span>Random Each Card</span>
               </label>
+              <label class="radio-pill">
+                <input type="radio" name="design-mode" value="manual" />
+                <span>✋ Pick Designs Manually</span>
+              </label>
+            </div>
+            <div id="manual-config" class="design-rotation-section manual-config hidden">
+              <h4>✋ Pick Your Designs</h4>
+              <p class="config-hint">Tap themes or backgrounds in the order you want. Card 1 gets your 1st pick, card 2 gets the 2nd, and so on. Tap again to un-pick.</p>
+              <div id="manual-status" class="manual-status info"></div>
+              <div id="manual-picks" class="manual-picks" aria-label="Your picked designs"></div>
+              <div class="manual-actions">
+                <label class="manual-rand">Add <input type="number" id="manual-rand-n" value="10" min="1" max="100" /> random from this tab</label>
+                <button type="button" id="manual-btn-random" class="btn btn-secondary btn-sm">🎲 Add</button>
+                <button type="button" id="manual-btn-fill" class="btn btn-secondary btn-sm">Fill to match cards</button>
+                <button type="button" id="manual-btn-shuffle" class="btn btn-ghost btn-sm">🔀 Shuffle order</button>
+                <button type="button" id="manual-btn-clear" class="btn btn-ghost btn-sm">Clear all</button>
+              </div>
+              <div id="manual-tabs" class="filter-tabs" role="tablist" aria-label="Design groups"></div>
+              <input type="search" id="manual-search" class="manual-search" placeholder="Search designs (e.g. gold, cross, sunset)…" aria-label="Search designs" />
+              <div id="manual-grid" class="manual-grid" role="list"></div>
             </div>
             <div id="rotation-config" class="design-rotation-section hidden">
               <h4>🎨 Design Rotation Settings</h4>

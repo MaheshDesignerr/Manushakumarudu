@@ -1958,6 +1958,7 @@ function init() {
   initDesignRotation();
   initDesignV2();
   initV3();
+  initManualPicker();
   bindBtn('btn-refresh-preview', refreshPreview);
   bindBtn('btn-clear-queue', function() {
     if (AppState.verses.length === 0) return;
@@ -2993,7 +2994,7 @@ async function refreshPreview() {
   var seq = ++_previewSeq;
   try {
     AppState.previewOnly = true;
-    var opts = buildCardOptions(0);
+    var opts = buildCardOptions(AppState.designMode === 'manual' ? (AppState.previewIndex || 0) : 0);
     AppState.previewOnly = false;
     var fmt = IMAGE_FORMATS[opts.format] || IMAGE_FORMATS['instagram-square'];
     opts.sizeScale = Math.min(1, 560 / Math.max(fmt.width, fmt.height));
@@ -3072,27 +3073,7 @@ function initCustomBgUpload() {
 // BULK IMPORT -> GENERATE
 // ============================================================
 
-function confirmImport() {
-  var all = (AppState.importPreview || []).filter(function(v) { return v.text && String(v.text).trim(); });
-  if (all.length === 0) { showToast('No verses to import.', 'error'); return; }
-  if (AppState.isGenerating) { showToast('Generation already in progress.', 'warning'); return; }
-  var max = AppState.settings.maxVerses || 100;
-  var toAdd = all.slice(0, max);
-  if (all.length > max) {
-    showToast('Only the first ' + max + ' of ' + all.length + ' verses are used (limit is set in Settings).', 'warning', 5000);
-  }
-  AppState.verses = AppState.verses.concat(toAdd);
-  AppState.importPreview = [];
-  renderVerseQueue();
-  updateDashboardStats();
-  if (typeof updateVerseCountBadge === 'function') updateVerseCountBadge();
-  renderExtractedTable([]);
-  var btn = $id('btn-confirm-generate');
-  if (btn) btn.disabled = true;
-  startGeneration(toAdd);
-}
-
-function startGeneration(list) {
+function beginGeneration(list) {
   if (AppState.isGenerating) { showToast('Generation already in progress.', 'warning'); return; }
   var verses = Array.isArray(list) ? list : AppState.verses.slice();
   if (verses.length === 0) { showToast('No verses to generate. Please add verses first.', 'error'); return; }
@@ -3181,6 +3162,7 @@ function mountDesignPanel(page) {
   var slot = $id('design-slot-' + page);
   var panel = $id('design-panel');
   if (slot && panel && panel.parentNode !== slot) slot.appendChild(panel);
+  if (typeof updateManualStatus === 'function') updateManualStatus();
   schedulePreview();
 }
 
@@ -4379,4 +4361,363 @@ function initV3() {
 
   loadDesign();
   restoreGallery();
+}
+
+// ============================================================
+// V4: PICK DESIGNS MANUALLY FOR BULK CARDS
+// Card 1 gets your 1st pick, card 2 gets your 2nd, and so on.
+// If you pick fewer than the number of cards, you are asked
+// whether the rest should be random, repeat your picks, or
+// whether you want to pick more.
+// ============================================================
+
+AppState.manualPicks = [];
+AppState.manualFill = 'random';
+AppState.manualTab = 'themes';
+AppState.manualSearch = '';
+AppState.previewIndex = 0;
+
+var MANUAL_TABS = [
+  ['themes', 'Themes'], ['solid', 'Colors'], ['gradient', 'Vibrant'], ['pattern', 'Patterns'],
+  ['christian', '\u271D Christian'], ['nature', 'Nature'], ['abstract', 'Abstract'], ['custom', 'My Uploads']
+];
+
+function allBackgrounds() {
+  return BACKGROUNDS.solid.concat(BACKGROUNDS.gradient, BACKGROUNDS.pattern, BACKGROUNDS.art, AppState.customBgs);
+}
+function findBg(id) { return allBackgrounds().filter(function(b) { return b.id === id; })[0]; }
+function pickIndex(kind, id) {
+  for (var i = 0; i < AppState.manualPicks.length; i++) {
+    var p = AppState.manualPicks[i];
+    if (p.kind === kind && p.id === id) return i;
+  }
+  return -1;
+}
+function pickLabel(p) {
+  if (p.kind === 'theme') return templateById(p.id).name;
+  var b = findBg(p.id);
+  return b ? (b.label || b.id) : 'Background';
+}
+
+function currentCardCount() {
+  if (AppState.currentPage === 'import') {
+    return (AppState.importPreview || []).filter(function(v) { return v.text && String(v.text).trim(); }).length;
+  }
+  return AppState.verses.length;
+}
+
+function savePicks() {
+  try { localStorage.setItem('bpc_picks', JSON.stringify(AppState.manualPicks.filter(function(p) { return p.kind === 'theme' || !(findBg(p.id) || {}).dataUrl; }))); } catch (e) { /* ignore */ }
+}
+function loadPicks() {
+  try {
+    var saved = JSON.parse(localStorage.getItem('bpc_picks') || '[]');
+    AppState.manualPicks = saved.filter(function(p) {
+      return p && (p.kind === 'theme' ? TEMPLATES.some(function(t) { return t.id === p.id; }) : !!findBg(p.id));
+    });
+  } catch (e) { AppState.manualPicks = []; }
+}
+
+// ---------- design resolution for one card ----------
+function manualDesign(i) {
+  var picks = AppState.manualPicks, base = AppState.selectedTemplate;
+  var p = picks[i];
+  if (!p && picks.length && AppState.manualFill === 'repeat') p = picks[i % picks.length];
+  if (!p) {
+    var rb = pickRandom(BACKGROUNDS.solid.concat(BACKGROUNDS.gradient, BACKGROUNDS.pattern, BACKGROUNDS.art));
+    return { templateId: base, bgId: rb.id, overrideBg: true, custom: false };
+  }
+  if (p.kind === 'theme') return { templateId: p.id, bgId: undefined, overrideBg: false, custom: false };
+  var bg = findBg(p.id);
+  return { templateId: base, bgId: p.id, overrideBg: true, custom: !!(bg && bg.dataUrl) };
+}
+
+(function hookDesignForIndex() {
+  var original = designForIndex;
+  designForIndex = function(i) {
+    if (AppState.designMode === 'manual') return manualDesign(i);
+    return original(i);
+  };
+})();
+
+// ---------- thumbnails ----------
+function pickThumb(p, size) {
+  var cv = document.createElement('canvas');
+  cv.width = size; cv.height = size;
+  var c = cv.getContext('2d');
+  if (p.kind === 'theme') {
+    drawTemplatePreview(c, size, size, templateById(p.id));
+  } else {
+    var bg = findBg(p.id);
+    if (bg && bg.dataUrl) {
+      var im = new Image();
+      im.onload = function() {
+        var s = Math.min(im.width, im.height);
+        c.drawImage(im, (im.width - s) / 2, (im.height - s) / 2, s, s, 0, 0, size, size);
+      };
+      im.src = bg.dataUrl;
+    } else {
+      drawBackgroundSync(c, size, size, p.id);
+    }
+  }
+  return cv;
+}
+
+// ---------- the picker UI ----------
+function tabItems(tab) {
+  var q = (AppState.manualSearch || '').trim().toLowerCase();
+  var items;
+  if (tab === 'themes') items = TEMPLATES.map(function(t) { return { kind: 'theme', id: t.id, label: t.name, hay: t.name + ' ' + (t.category || '') }; });
+  else {
+    var list = tab === 'custom' ? AppState.customBgs : bgListForMode(tab);
+    items = list.map(function(b) { return { kind: 'bg', id: b.id, label: b.label || b.id, hay: (b.label || '') + ' ' + (b.kind || '') + ' ' + (b.cat || '') }; });
+  }
+  if (q) items = items.filter(function(it) { return it.hay.toLowerCase().indexOf(q) >= 0; });
+  return items;
+}
+
+function updateManualStatus() {
+  var box = $id('manual-status');
+  if (!box) return;
+  var cards = currentCardCount(), picked = AppState.manualPicks.length;
+  var msg, cls;
+  if (cards === 0) {
+    msg = 'Designs picked: ' + picked + '. Add verses (or import a file) and the card count will show here.';
+    cls = 'info';
+  } else if (picked === 0) {
+    msg = 'Cards to generate: ' + cards + ' · Designs picked: 0. Tap designs below to choose them.';
+    cls = 'warn';
+  } else if (picked < cards) {
+    msg = 'Cards to generate: ' + cards + ' · Designs picked: ' + picked + '. ' + (cards - picked) + ' card(s) have no design yet. You will be asked how to fill them when you generate.';
+    cls = 'warn';
+  } else if (picked > cards) {
+    msg = 'Cards to generate: ' + cards + ' · Designs picked: ' + picked + '. The extra ' + (picked - cards) + ' pick(s) will not be used.';
+    cls = 'info';
+  } else {
+    msg = 'Cards to generate: ' + cards + ' · Designs picked: ' + picked + '. Every card has its own design.';
+    cls = 'ok';
+  }
+  box.textContent = msg;
+  box.className = 'manual-status ' + cls;
+}
+
+function renderManualPicker() {
+  var cfg = $id('manual-config');
+  if (!cfg) return;
+  updateManualStatus();
+
+  // picked list
+  var picksBox = $id('manual-picks');
+  picksBox.innerHTML = '';
+  if (!AppState.manualPicks.length) {
+    picksBox.innerHTML = '<span class="manual-empty">Nothing picked yet. Tap a theme or background below.</span>';
+  }
+  AppState.manualPicks.forEach(function(p, i) {
+    var chip = document.createElement('div');
+    chip.className = 'pick-chip' + (AppState.previewIndex === i ? ' previewing' : '');
+    var th = pickThumb(p, 34);
+    th.className = 'pick-chip-thumb';
+    th.title = 'Show this design in Live Preview';
+    th.addEventListener('click', function() { AppState.previewIndex = i; renderManualPicker(); schedulePreview(); });
+    var num = document.createElement('span'); num.className = 'pick-chip-num'; num.textContent = i + 1;
+    var name = document.createElement('span'); name.className = 'pick-chip-name'; name.textContent = pickLabel(p);
+    function mk(txt, title, fn) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'pick-chip-btn'; b.textContent = txt; b.title = title;
+      b.addEventListener('click', function(e) { e.stopPropagation(); fn(); }); return b;
+    }
+    chip.appendChild(num); chip.appendChild(th); chip.appendChild(name);
+    chip.appendChild(mk('\u25C0', 'Move earlier', function() { movePick(i, -1); }));
+    chip.appendChild(mk('\u25B6', 'Move later', function() { movePick(i, 1); }));
+    chip.appendChild(mk('\u2715', 'Remove', function() { AppState.manualPicks.splice(i, 1); afterPicksChanged(); }));
+    picksBox.appendChild(chip);
+  });
+
+  // tabs
+  var tabs = $id('manual-tabs');
+  tabs.innerHTML = '';
+  MANUAL_TABS.forEach(function(t) {
+    if (t[0] === 'custom' && !AppState.customBgs.length) return;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab-btn' + (AppState.manualTab === t[0] ? ' active' : '');
+    b.textContent = t[1];
+    b.addEventListener('click', function() { AppState.manualTab = t[0]; renderManualPicker(); });
+    tabs.appendChild(b);
+  });
+
+  // grid
+  var grid = $id('manual-grid');
+  grid.innerHTML = '';
+  var items = tabItems(AppState.manualTab);
+  if (!items.length) grid.innerHTML = '<span class="manual-empty">Nothing found.</span>';
+  items.forEach(function(it) {
+    var idx = pickIndex(it.kind, it.id);
+    var tile = document.createElement('button');
+    tile.type = 'button';
+    tile.className = 'pick-tile' + (idx >= 0 ? ' picked' : '');
+    tile.setAttribute('aria-pressed', idx >= 0 ? 'true' : 'false');
+    tile.title = it.label;
+    tile.appendChild(pickThumb(it, 84));
+    var lab = document.createElement('span'); lab.className = 'pick-tile-label'; lab.textContent = it.label;
+    tile.appendChild(lab);
+    if (idx >= 0) { var badge = document.createElement('span'); badge.className = 'pick-badge'; badge.textContent = idx + 1; tile.appendChild(badge); }
+    tile.addEventListener('click', function() {
+      var at = pickIndex(it.kind, it.id);
+      if (at >= 0) AppState.manualPicks.splice(at, 1); else AppState.manualPicks.push({ kind: it.kind, id: it.id });
+      afterPicksChanged();
+    });
+    grid.appendChild(tile);
+  });
+}
+
+function afterPicksChanged() {
+  if (AppState.previewIndex >= AppState.manualPicks.length) AppState.previewIndex = Math.max(0, AppState.manualPicks.length - 1);
+  savePicks();
+  var scroller = $id('manual-grid'), top = scroller ? scroller.scrollTop : 0;
+  renderManualPicker();
+  if (scroller) scroller.scrollTop = top;
+  schedulePreview();
+}
+
+function movePick(i, d) {
+  var j = i + d, a = AppState.manualPicks;
+  if (j < 0 || j >= a.length) return;
+  var t = a[i]; a[i] = a[j]; a[j] = t;
+  AppState.previewIndex = j;
+  afterPicksChanged();
+}
+
+function shuffleArr(a) {
+  for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+
+function addRandomFromTab() {
+  var n = parseInt(val('manual-rand-n'), 10) || 10;
+  var items = tabItems(AppState.manualTab).filter(function(it) { return pickIndex(it.kind, it.id) < 0; });
+  shuffleArr(items).slice(0, n).forEach(function(it) { AppState.manualPicks.push({ kind: it.kind, id: it.id }); });
+  afterPicksChanged();
+}
+
+function fillToMatchCards() {
+  var need = currentCardCount() - AppState.manualPicks.length;
+  if (need <= 0) { showToast(currentCardCount() === 0 ? 'No cards yet. Add or import verses first.' : 'You already have enough designs.', 'info'); return; }
+  var pool = shuffleArr(allBackgrounds().filter(function(b) { return pickIndex('bg', b.id) < 0 && !b.dataUrl; }));
+  pool.slice(0, need).forEach(function(b) { AppState.manualPicks.push({ kind: 'bg', id: b.id }); });
+  afterPicksChanged();
+  showToast('Added ' + need + ' random background(s).', 'success', 2200);
+}
+
+// ---------- ask how to fill the remaining cards ----------
+function showFillDialog(picked, total, onChoose) {
+  var old = $id('fill-modal'); if (old) old.remove();
+  var rest = total - picked;
+  var m = document.createElement('div');
+  m.id = 'fill-modal'; m.className = 'fill-modal';
+  m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML =
+    '<div class="fill-box">' +
+      '<h3>Not enough designs picked</h3>' +
+      '<p>You picked <b>' + picked + '</b> design' + (picked === 1 ? '' : 's') + ' but have <b>' + total + '</b> cards.<br/>' +
+      'What should happen with the remaining <b>' + rest + '</b> card' + (rest === 1 ? '' : 's') + '?</p>' +
+      '<div class="fill-actions">' +
+        '<button type="button" class="btn btn-primary" data-choice="random">\uD83C\uDFB2 Use random backgrounds for the rest</button>' +
+        '<button type="button" class="btn btn-secondary" data-choice="repeat">\uD83D\uDD01 Repeat my picks in order</button>' +
+        '<button type="button" class="btn btn-ghost" data-choice="more">\u270B Let me pick more</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(m);
+  m.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-choice]');
+    if (!btn && e.target !== m) return;
+    var choice = btn ? btn.getAttribute('data-choice') : 'more';
+    m.remove();
+    onChoose(choice);
+  });
+  var first = m.querySelector('button'); if (first) first.focus();
+}
+
+function prepareDesigns(count, go) {
+  if (AppState.designMode !== 'manual') { go(); return; }
+  var picked = AppState.manualPicks.length;
+  if (picked === 0) {
+    showToast('Pick at least one design in "Pick Designs Manually", or choose another design mode.', 'warning', 5000);
+    var cfg = $id('manual-config'); if (cfg) cfg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  if (picked >= count) { go(); return; }
+  showFillDialog(picked, count, function(choice) {
+    if (choice === 'more') {
+      var cfg2 = $id('manual-config');
+      if (cfg2) cfg2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showToast('Pick ' + (count - picked) + ' more design(s), then generate again.', 'info', 4500);
+      return;
+    }
+    AppState.manualFill = choice;
+    go();
+  });
+}
+
+// ---------- start generation with the design check ----------
+function startGeneration(list) {
+  if (AppState.isGenerating) { showToast('Generation already in progress.', 'warning'); return; }
+  var verses = Array.isArray(list) ? list : AppState.verses.slice();
+  if (verses.length === 0) { showToast('No verses to generate. Please add verses first.', 'error'); return; }
+  prepareDesigns(verses.length, function() { beginGeneration(verses); });
+}
+
+function confirmImport() {
+  var all = (AppState.importPreview || []).filter(function(v) { return v.text && String(v.text).trim(); });
+  if (all.length === 0) { showToast('No verses to import.', 'error'); return; }
+  if (AppState.isGenerating) { showToast('Generation already in progress.', 'warning'); return; }
+  var max = AppState.settings.maxVerses || 100;
+  var toAdd = all.slice(0, max);
+  if (all.length > max) showToast('Only the first ' + max + ' of ' + all.length + ' verses are used (limit is set in Settings).', 'warning', 5000);
+  prepareDesigns(toAdd.length, function() {
+    AppState.verses = AppState.verses.concat(toAdd);
+    AppState.importPreview = [];
+    renderVerseQueue();
+    updateDashboardStats();
+    renderExtractedTable([]);
+    var btn = $id('btn-confirm-generate');
+    if (btn) btn.disabled = true;
+    beginGeneration(toAdd);
+  });
+}
+
+// ---------- keep the counter up to date ----------
+['renderVerseQueue', 'renderExtractedTable', 'processImportedVerses'].forEach(function(name) {
+  var orig = window[name];
+  if (typeof orig !== 'function') return;
+  window[name] = function() {
+    var r = orig.apply(this, arguments);
+    try { updateManualStatus(); } catch (e) { /* ignore */ }
+    return r;
+  };
+});
+
+function initManualPicker() {
+  loadPicks();
+  var radios = document.querySelectorAll('input[name="design-mode"]');
+  radios.forEach(function(r) {
+    r.addEventListener('change', function() {
+      var cfg = $id('manual-config'), rot = $id('rotation-config');
+      if (r.value === 'manual') {
+        if (cfg) cfg.classList.remove('hidden');
+        if (rot) rot.classList.add('hidden');
+        renderManualPicker();
+      } else if (cfg) {
+        cfg.classList.add('hidden');
+      }
+      AppState.previewIndex = 0;
+      schedulePreview();
+    });
+  });
+  var s = $id('manual-search');
+  if (s) s.addEventListener('input', debounce(function() { AppState.manualSearch = s.value; renderManualPicker(); }, 150));
+  bindBtn('manual-btn-random', addRandomFromTab);
+  bindBtn('manual-btn-fill', fillToMatchCards);
+  bindBtn('manual-btn-shuffle', function() { shuffleArr(AppState.manualPicks); afterPicksChanged(); });
+  bindBtn('manual-btn-clear', function() { AppState.manualPicks = []; AppState.previewIndex = 0; afterPicksChanged(); });
+  renderManualPicker();
 }

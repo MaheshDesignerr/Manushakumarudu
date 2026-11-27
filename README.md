@@ -60,4 +60,3 @@ MIT License – Free for personal and ministry use.
 ## 🙏 Credits
 
 Built for **Manushakumarudu** ministry.
-
